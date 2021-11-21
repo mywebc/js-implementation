@@ -1,6 +1,5 @@
 /**
- * throttle节流
- * @description 每隔一段时间只会执行一次， 稀释函数执行频率 比如抢红包
+ * @description throttle节流 每隔一段时间只会执行一次， 稀释函数执行频率 比如抢红包
  * @returns callback
  */
 

@@ -1,5 +1,5 @@
 /**
- * 伪数组 -> 数组
+ * @description 伪数组 -> 数组
  */
 
 // 1. Array.from
