@@ -3,7 +3,7 @@
  * @returns callback
  */
 
-const deBounce = (fn, deplay) => {
+const deBounce = (fn, deploy) => {
     // 每次进来都会清除上一次计时器
     let timeout = null
     return function () {
@@ -11,6 +11,6 @@ const deBounce = (fn, deplay) => {
         timeout = setTimeout(() => {
             // 返回的是函数， 这里带上arguments
             fn.apply(this, arguments);
-        }, deplay)
+        }, deploy)
     }
 }

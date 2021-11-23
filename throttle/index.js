@@ -3,7 +3,7 @@
  * @returns callback
  */
 
-const throttle = (fn, deplay) => {
+const throttle = (fn, delay) => {
     let flag = true
     return function () {
         if (!flag) return
@@ -11,6 +11,6 @@ const throttle = (fn, deplay) => {
         setTimeout(() => {
             fn.apply(this, arguments)
             flag = true
-        }, deplay)
+        }, delay)
     }
 }
