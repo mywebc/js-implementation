@@ -67,6 +67,37 @@ Promisee.prototype.catch = function (fn) {
   return this.then(null, fn);
 };
 
+// all 接受一个promise数组, 返回一个promise, 遍历循环promise数组, 直到所有都执行完然后再resolve出去
+Promisee.prototype.all = function (promiseArr) {
+  return new Promisee((resolve, reject) => {
+    let resolveValues = [];
+    let resolveCount = 0;
+    for (let i = 0; i < promiseArr.length; i++) {
+      promiseArr[i].then(
+        function (res) {
+          resolveCount++;
+          resolveValues[i] = res;
+          if (resolveCount === promiseArr.length) {
+            resolve(resolveValues);
+          }
+        },
+        function (err) {
+          reject(err);
+        }
+      );
+    }
+  })
+}
+
+// race 只返回第一个执行成功的结果, 循环调用, 只要任意一个成功了就会调用resolve并跳出来
+Promisee.prototype.race = function (promiseArr) {
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < promiseArr.length; i++) {
+      promiseArr[i].then(resolve, reject)
+    }
+  })
+}
+
 // 使用
 let p1 = new Promise((resolve, reject) => {
   setTimeout(() => {
