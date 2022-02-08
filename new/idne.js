@@ -15,3 +15,4 @@ function myNew() {
     const res = fn.apply(obj, arguments)
     return typeof res === 'object' ? res : obj
 }
+

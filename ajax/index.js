@@ -14,7 +14,9 @@ function ajax(method, url, data) {
       }
 
     };
+    // 第三个参数表示是否异步, 默认为异步, 不会阻塞
+    // 严格来讲是需要区分get和post, 这里我们简写, get需要自己手动拼写参数到url后
     xhr.open(method, url);
     xhr.send(data);
   });
-}
+}ß

@@ -8,6 +8,10 @@ function myCall(context = window, ...args) {
   }
   // 将调用函数作为一个属性, 挂在这个对象上
   context.fn = this
+  if (!args) {
+    // 直接返回
+    return context.fn()
+  }
   const result = context.fn(...args)
   delete context.fn
   return result
@@ -28,7 +32,7 @@ function myApply(context = window, args) {
   return result
 }
 
-// bind是直接返回函数, 不需要立即执行, 第二个参数是数组(和bind一样)
+// bind是直接返回函数, 不需要立即执行, 第二个参数是数组(和apply一样)
 function myBind(context, args) {
   if (typeof this) {
     throw new Error("type error")
@@ -36,7 +40,7 @@ function myBind(context, args) {
   let _this = this
   return function F() {
     // 判断是不是用new来调用
-    if (this instanceof F) return new _this(...args, ...args2)
+    if (this instanceof F) return new _this(...args, ...arguments)
     _this.apply(context, args.concat(...arguments))
   }
 }
