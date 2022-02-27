@@ -25,7 +25,8 @@ const cloneOne = (obj) => {
 function clone(target, hash = new Map()) {
     //判断拷贝的数据类型
     //初始化变量result 成为最终克隆的数据
-    let result, targetType = checkedType(target)
+    let result;
+    let targetType = checkedType(target)
     if (targetType === 'Object') {
         result = {}
     } else if (targetType === 'Array') {
