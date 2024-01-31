@@ -140,3 +140,66 @@ p1.then((val) => {
 }).catch((error) => {
   console.log("shit", error);
 });
+
+// 实现promise all
+function MyPromiseAll(promiseArr) {
+  return new Promise((resolve, reject) => {
+    let count = 0
+    let result = []
+    for (let k in promiseArr) {
+      Promise.resolve(promiseArr[k]).then(val => {
+        count++
+        result.push(val) // 注意如果是push的话有可能顺序不一样
+        // result[k] = val 
+        if (count === promiseArr.length) {
+          resolve(result)
+        }
+      }).catch(err => {
+        reject(err)
+      })
+    }
+  })
+}
+
+// 实现promise race 只要有一个成功或失败就立刻返回
+function MyPromiseRace(promiseArr) {
+  return new Promise((resolve, reject) => {
+    for (let p of promiseArr) {
+      p.then(val => {
+        resolve(val)
+      }).catch(e => {
+        reject(e)
+      })
+    }
+  })
+}
+
+// promise 控制并发
+function promiseAll(promiseArr, limit) {
+  return new Promise((resolve, reject) => {
+    let result = []
+    let count = 0 // 存放结果数组的索引
+    let successCount = 0 // 请求成功的次数
+
+    function next(urlP, index) {
+      urlP().then(val => {
+        result[index] = val
+        successCount++
+
+        if (promiseArr.length) {
+          const p = promiseArr.shift()
+          next(p, count)
+          count++
+        } else if (successCount === promiseArr.length) {
+          resolve(result)
+        }
+      })
+    }
+
+    while (count < limit && promiseArr.length) {
+      const p = promiseArr.shift()
+      next(p, count)
+      count++
+    }
+  })
+}

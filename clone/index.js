@@ -40,7 +40,6 @@ function clone(target, hash = new Map()) {
         return hash.get(target)
     }
 
-    hash.set(target, result)
 
     //遍历目标数据
     for (let i in target) {
@@ -55,6 +54,8 @@ function clone(target, hash = new Map()) {
             result[i] = value;
         }
     }
+    hash.set(target, result)
+
     return result
 }
 

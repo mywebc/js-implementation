@@ -1,5 +1,5 @@
 /**
- * @description 实现ajax
+ * @description 实现ajax, 这个也叫模拟axios
  */
 
 function ajax(method, url, data) {
@@ -19,4 +19,4 @@ function ajax(method, url, data) {
     xhr.open(method, url);
     xhr.send(data);
   });
-}ß
+}

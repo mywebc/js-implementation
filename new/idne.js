@@ -16,3 +16,4 @@ function myNew() {
     return typeof res === 'object' ? res : obj
 }
 
+
